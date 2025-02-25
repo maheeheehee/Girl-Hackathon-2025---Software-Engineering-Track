@@ -1,2 +1,5 @@
-spacy
-en_core_web_trf==3.7.0 --no-deps https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.0/en_core_web_trf-3.7.0.tar.gz
+spacy==3.7.0
+en_core_web_sm==3.7.0 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0.tar.gz
+transformers
+pandas
+joblib
