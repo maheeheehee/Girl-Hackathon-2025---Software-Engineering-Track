@@ -1,3 +1,6 @@
+spacy
+en-core-web-sm
+
 streamlit
 pandas
 joblib
