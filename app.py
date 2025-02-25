@@ -4,11 +4,30 @@ import joblib
 import spacy
 from transformers import pipeline
 
-# Load spaCy model (assumed pre-installed via requirements.txt)
+import streamlit as st
+import pandas as pd
+import joblib
+import spacy
+from transformers import pipeline
+import os  # Import the os module
+
+# Download spaCy model if it's not already present
+model_name = "en_core_web_sm"
+model_path = os.path.join(os.getcwd(), model_name)  # Create a path in the current directory
+
+if not os.path.exists(model_path):
+    try:
+        import subprocess
+        subprocess.run(["python", "-m", "spacy", "download", model_name])
+    except Exception as e:
+        st.error(f"Failed to download spaCy model: {e}")
+        st.stop()
+
+# Load the spaCy model from the specified path
 try:
-    ner_model = spacy.load("en_core_web_sm")  # Named Entity Recognition
+    ner_model = spacy.load(model_path)
 except OSError:
-    st.error("spaCy model 'en_core_web_sm' is not installed. Ensure it's included in requirements.txt.")
+    st.error(f"spaCy model '{model_name}' could not be loaded from '{model_path}'.")
     st.stop()
 
 # Load NLP models
