@@ -8,15 +8,16 @@ import os
 import subprocess
 import spacy
 
-# Ensure spaCy model is installed
+# Ensure spaCy model is installed before use
 try:
     spacy.load("en_core_web_sm")
 except OSError:
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    spacy.load("en_core_web_sm")  # Try loading it again after installation
+    subprocess.run(["pip", "install", "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0.tar.gz"])
+    spacy.load("en_core_web_sm")  # Try loading again after installation
 
-# Now proceed with your code
+# Now use the model
 ner_model = spacy.load("en_core_web_sm")  # Named Entity Recognition
+
 
 
 # Load NLP models
