@@ -1,0 +1,6 @@
+streamlit
+pandas
+joblib
+spacy
+transformers
+scikit-learn  # Required for joblib-based models
