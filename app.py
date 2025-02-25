@@ -3,27 +3,12 @@ import pandas as pd
 import joblib
 import spacy
 from transformers import pipeline
+import os  # Import os module
 
-import streamlit as st
-import pandas as pd
-import joblib
-import spacy
-from transformers import pipeline
-import os  # Import the os module
-
-# Download spaCy model if it's not already present
+# Load spaCy model (from the directory where setup.sh installed it)
 model_name = "en_core_web_sm"
-model_path = os.path.join(os.getcwd(), model_name)  # Create a path in the current directory
+model_path = os.path.join(os.getcwd(), model_name)
 
-if not os.path.exists(model_path):
-    try:
-        import subprocess
-        subprocess.run(["python", "-m", "spacy", "download", model_name])
-    except Exception as e:
-        st.error(f"Failed to download spaCy model: {e}")
-        st.stop()
-
-# Load the spaCy model from the specified path
 try:
     ner_model = spacy.load(model_path)
 except OSError:
