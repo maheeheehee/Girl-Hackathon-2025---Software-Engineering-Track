@@ -4,6 +4,21 @@ import joblib
 import spacy
 from transformers import pipeline
 
+import os
+import subprocess
+import spacy
+
+# Ensure spaCy model is installed
+try:
+    spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    spacy.load("en_core_web_sm")  # Try loading it again after installation
+
+# Now proceed with your code
+ner_model = spacy.load("en_core_web_sm")  # Named Entity Recognition
+
+
 # Load NLP models
 ner_model = spacy.load("en_core_web_sm")  # Named Entity Recognition
 sentiment_analyzer = pipeline("sentiment-analysis")  # Sentiment Analysis
