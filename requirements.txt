@@ -1,6 +1,2 @@
 streamlit
-spacy==3.7.0
-transformers
-pandas
-joblib
-numpy==1.23.5
+numpy==1.24.4
