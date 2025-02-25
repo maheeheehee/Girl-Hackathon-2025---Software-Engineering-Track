@@ -3,27 +3,22 @@ import pandas as pd
 import joblib
 import spacy
 from transformers import pipeline
-import os
-import subprocess
 
-# Function to ensure spaCy model is installed
-def load_spacy_model(model_name="en_core_web_sm"):
-    try:
-        return spacy.load(model_name)
-    except OSError:
-        st.warning(f"Downloading {model_name} model, this may take some time...")
-        subprocess.run(["python", "-m", "spacy", "download", model_name])
-        return spacy.load(model_name)
+# Load spaCy model (assumed pre-installed via requirements.txt)
+try:
+    ner_model = spacy.load("en_core_web_sm")  # Named Entity Recognition
+except OSError:
+    st.error("spaCy model 'en_core_web_sm' is not installed. Ensure it's included in requirements.txt.")
+    st.stop()
 
-# Load models
-ner_model = load_spacy_model()  # Named Entity Recognition
+# Load NLP models
 sentiment_analyzer = pipeline("sentiment-analysis")  # Sentiment Analysis
 
 # Load text classification model
 try:
     classifier = joblib.load("text_classifier.pkl")
 except Exception as e:
-    st.error("Failed to load text classifier model. Ensure `text_classifier.pkl` is in the project directory.")
+    st.error("Failed to load text classifier model. Ensure 'text_classifier.pkl' is present.")
     st.stop()
 
 # Streamlit UI
@@ -53,5 +48,3 @@ if uploaded_file:
     prediction = classifier.predict([text])[0]
     st.subheader("Text Classification:")
     st.write(f"Predicted Category: **{prediction}**")
-
-# Run using: streamlit run app.py
